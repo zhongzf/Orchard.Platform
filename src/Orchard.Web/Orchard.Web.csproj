@@ -161,7 +161,6 @@
     <Content Include="Config\Host.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Sites\Default\Data\Orchard.db" />
     <Content Include="App_Data\Sites\Default\Data\Orchard_Framework_DataMigrationRecord" />
     <Content Include="App_Data\Sites\Default\Orchard.db" />
     <None Include="Web.Debug.config">
