@@ -1,0 +1,11 @@
+﻿Name: Orchard.Security
+AntiForgery: enabled
+Author: zhong_zhaofeng (http://zhongzf.cnblogs.com)
+Website: https://orchardoracle.codeplex.com
+Version: 0.1
+OrchardVersion: 1.7
+Description: Orchard Security
+Dependencies:
+Features:
+    Orchard.Security:
+        Description: Orchard.Security.

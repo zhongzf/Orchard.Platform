@@ -1,0 +1,11 @@
+﻿Name: Orchard.Home
+AntiForgery: enabled
+Author: zhong_zhaofeng (http://zhongzf.cnblogs.com)
+Website: https://orchardoracle.codeplex.com
+Version: 0.1
+OrchardVersion: 1.7
+Description: Orchard Home
+Dependencies:
+Features:
+    Orchard.Home:
+        Description: Orchard.Home.

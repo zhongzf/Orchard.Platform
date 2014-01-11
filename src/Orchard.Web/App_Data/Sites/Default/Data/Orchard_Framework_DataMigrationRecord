@@ -1,0 +1,17 @@
+﻿[
+	{
+		Id: 1,
+		DataMigrationClass: "Orchard.Core.Settings.Migrations",
+		Version: 4
+	},
+	{
+		Id: 2,
+		DataMigrationClass: "Orchard.ContentManagement.DataMigrations.FrameworkDataMigration",
+		Version: 2
+	},
+	{
+		Id: 10,
+		DataMigrationClass: "Orchard.Themes.ThemesDataMigration",
+		Version: 1
+	}
+]
