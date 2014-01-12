@@ -1,7 +1,7 @@
 State: Running
 Themes: 
 Name: Default
-DataProvider: SQLite
+DataProvider: SqlCe
 DataConnectionString: null
 DataTablePrefix: null
 RequestUrlHost: null

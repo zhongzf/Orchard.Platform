@@ -1,0 +1,19 @@
+﻿[
+	{
+		Id: 1,
+		SerialNumber: 1,
+		Features:
+			[
+				{Name: "Orchard.Framework"},
+				{Name: "Navigation"},
+                {Name: "Settings"},
+                {Name: "Shapes"},
+                {Name: "Orchard.Themes"},
+                {Name: "Orchard.Modules"},
+                {Name: "Orchard.jQuery"},
+                {Name: "TheThemeMachine"},
+                {Name: "Orchard.Security"},
+                {Name: "Orchard.Home"}
+			]
+	}
+]
