@@ -4,6 +4,7 @@ using Orchard.Environment.ShellBuilders.Models;
 using Orchard.Localization;
 using Orchard.Logging;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +18,14 @@ namespace Orchard.Data
 
     public class JsonDataRepositoryFactoryHolder : IJsonDataRepositoryFactoryHolder
     {
+        private static readonly ConcurrentDictionary<string, IJsonDataRepositoryFactory> factories = new ConcurrentDictionary<string, IJsonDataRepositoryFactory>();
+
         private readonly ShellSettings _shellSettings;
-        private readonly ShellBlueprint _shellBlueprint;
-        private readonly IHostEnvironment _hostEnvironment;
 
         public JsonDataRepositoryFactoryHolder(
-            ShellSettings shellSettings,
-            ShellBlueprint shellBlueprint,
-            IHostEnvironment hostEnvironment)
+            ShellSettings shellSettings)
         {
             _shellSettings = shellSettings;
-            _shellBlueprint = shellBlueprint;
-            _hostEnvironment = hostEnvironment;
 
             T = NullLocalizer.Instance;
             Logger = NullLogger.Instance;
@@ -41,11 +38,14 @@ namespace Orchard.Data
         private IJsonDataRepositoryFactory _jsonDataRepositoryFactory;
         public IJsonDataRepositoryFactory GetRepositoryFactory()
         {
-            lock (this)
+            if (_jsonDataRepositoryFactory == null)
             {
-                if (_jsonDataRepositoryFactory == null)
+                lock (this)
                 {
-                    _jsonDataRepositoryFactory = BuildRepositoryFactory();
+                    if (_jsonDataRepositoryFactory == null)
+                    {
+                        _jsonDataRepositoryFactory = factories.GetOrAdd(_shellSettings.Name, _ => { return BuildRepositoryFactory(); });
+                    }
                 }
             }
             return _jsonDataRepositoryFactory;

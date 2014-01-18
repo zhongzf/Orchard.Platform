@@ -7,12 +7,14 @@ using System.Linq.Expressions;
 using Newtonsoft.Json;
 using System.IO;
 using Orchard.Utility.Extensions;
+using System.Collections.Concurrent;
 
 namespace Orchard.Data
 {
     public class JsonDataRepository<T> : IRepository<T> where T : class
     {
         public ILogger Logger { get; set; }
+        private readonly IJsonDataRepositoryFactory _factory;
 
         private string fileName;
         public string FileName
@@ -27,9 +29,11 @@ namespace Orchard.Data
             }
         }
 
-        public JsonDataRepository(string fileName) : this()
+        public JsonDataRepository(string fileName, IJsonDataRepositoryFactory factory)
+            : this()
         {
             this.fileName = fileName;
+            this._factory = factory;
         }
 
         public JsonDataRepository()
@@ -38,7 +42,7 @@ namespace Orchard.Data
         }
 
         private bool loaded = false;
-        private List<T> data;
+        private ConcurrentDictionary<int, T> data;
 
         public virtual IQueryable<T> Table
         {
@@ -53,49 +57,115 @@ namespace Orchard.Data
                             if (File.Exists(fileName))
                             {
                                 string json = File.ReadAllText(fileName);
-                                data = JsonConvert.DeserializeObject<List<T>>(json);
+                                var list = JsonConvert.DeserializeObject<List<T>>(json);
+                                data = new ConcurrentDictionary<int, T>();
+                                foreach (var value in list)
+                                {
+                                    data.TryAdd(GetId(value), value);
+                                }
                             }
                             else
                             {
-                                data = new List<T>();
+                                data = new ConcurrentDictionary<int, T>();
                             }
                             this.loaded = true;
                         }
                     }
                 }
-                return data.AsQueryable();
+                return data.Values.AsQueryable();
+            }
+        }
+
+        public virtual int GetId(T entity)
+        {
+            dynamic t = entity;
+            return (int)t.Id;
+        }
+
+        public virtual T SetId(T entity, int id)
+        {
+            dynamic t = entity;
+            t.Id = id;
+            return (T)t;
+        }
+
+        public virtual int GetUniqueId()
+        {
+            if (data.Keys.Count > 0)
+            {
+                return data.Keys.Max() + 1;
+            }
+            else
+            {
+                return 1;
             }
         }
 
         public virtual void Create(T entity)
         {
             Logger.Debug("Create {0}", entity);
-            data.Add(entity);
+            int id = GetUniqueId();
+            data.TryAdd(id, SetId(entity, id));
+            try
+            {
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "JsonDataRepository Flush failed.");
+            }
         }
 
         public virtual void Update(T entity)
         {
             Logger.Debug("Update {0}", entity);
-            // TODO:
+            if (!data.Values.Contains(entity))
+            {
+                Copy(entity, Get(GetId(entity)));
+            }
+            try
+            {
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "JsonDataRepository Flush failed.");
+            }
         }
 
         public virtual void Delete(T entity)
         {
             Logger.Debug("Delete {0}", entity);
-            data.Remove(entity);
+            T t;
+            data.TryRemove(GetId(entity), out t);
+            try
+            {
+                Flush();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "JsonDataRepository Flush failed.");
+            }
         }
 
         public virtual void Flush()
         {
-            string json = JsonConvert.SerializeObject(data);
-            File.WriteAllText(fileName, json);
+            lock (this)
+            {
+                string json = JsonConvert.SerializeObject(data.Values);
+                File.WriteAllText(fileName, json);
+            }
         }
-        
+
 
         public void Copy(T source, T target)
         {
             Logger.Debug("Copy {0} {1}", source, target);
-            // TODO:
+            IEnumerable<Action<T, T>> propertyTransferList = _factory.GetPropertyTransfers<T>();
+            foreach (var propertyTransfer in propertyTransferList)
+            {
+                propertyTransfer(source, target);
+            }
         }
 
         public T Get(int id)

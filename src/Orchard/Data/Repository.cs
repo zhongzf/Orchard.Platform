@@ -59,8 +59,14 @@ namespace Orchard.Data
             {
                 if (jsonDataRepositoryFactory == null)
                 {
-                    jsonDataRepositoryFactory = _jsonDataRepositoryFactoryHolder.GetRepositoryFactory();
-                    jsonDataRepositoryFactory.BindFile(typeof(T), GetJsonDataFileName());
+                    lock (this)
+                    {
+                        if (jsonDataRepositoryFactory == null)
+                        {
+                            jsonDataRepositoryFactory = _jsonDataRepositoryFactoryHolder.GetRepositoryFactory();
+                            jsonDataRepositoryFactory.BindFile(typeof(T), GetJsonDataFileName());
+                        }
+                    }
                 }
                 return jsonDataRepositoryFactory.GetRepository<T>();
             }
