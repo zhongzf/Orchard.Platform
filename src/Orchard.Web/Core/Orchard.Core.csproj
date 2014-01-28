@@ -66,6 +66,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contents\Drivers\ContentsDriver.cs" />
+    <Compile Include="Contents\Extensions\MetaDataExtensions.cs" />
+    <Compile Include="Contents\Permissions.cs" />
+    <Compile Include="Contents\Settings\ContentTypeSettings.cs" />
+    <Compile Include="Contents\Shapes.cs" />
     <Compile Include="Navigation\Services\NavigationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Models\SiteSettings2Part.cs" />
@@ -94,6 +99,7 @@
     <Compile Include="Shapes\DateTimeShapes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Contents\Module.txt" />
     <Content Include="Navigation\Module.txt" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
@@ -159,6 +165,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Shapes\Views\MenuItemLink.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Contents\Placement.info" />
+    <Content Include="Contents\Views\Content.cshtml" />
+    <Content Include="Contents\Views\Content.Edit.cshtml" />
+    <Content Include="Contents\Views\Content.PublishButton.cshtml" />
+    <Content Include="Contents\Views\Content.SaveButton.cshtml" />
+    <Content Include="Contents\Views\Parts.Contents.Clone.SummaryAdmin.cshtml" />
+    <Content Include="Contents\Views\Parts.Contents.Publish.cshtml" />
+    <Content Include="Contents\Views\Parts.Contents.Publish.SummaryAdmin.cshtml" />
+    <Content Include="Contents\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
