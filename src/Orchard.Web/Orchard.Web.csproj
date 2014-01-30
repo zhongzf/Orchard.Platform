@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Sites\Default\Orchard.sdf" />
+    <Content Include="App_Data\Sites\Default\Orchard.sql" />
     <Content Include="App_Data\Sites\Default\Settings.txt" />
     <Content Include="Global.asax" />
     <Content Include="Refresh.html" />
@@ -163,9 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Sites\Default\Data\Orchard_Framework_DataMigrationRecord" />
-    <Content Include="App_Data\Sites\Default\Orchard.db" />
     <Content Include="App_Data\Sites\Default\Data\Orchard_Themes_ThemeSiteSettingsPartRecord" />
     <Content Include="App_Data\Sites\Default\Data\Settings_ShellDescriptorRecord" />
+    <Content Include="App_Data\Sites\Default\Data\Settings_SiteSettingsPartRecord" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

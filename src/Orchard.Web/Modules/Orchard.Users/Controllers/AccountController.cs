@@ -109,7 +109,8 @@ namespace Orchard.Users.Controllers {
         public ActionResult Register() {
             // ensure users can register
             var registrationSettings = _orchardServices.WorkContext.CurrentSite.As<RegistrationSettingsPart>();
-            if ( !registrationSettings.UsersCanRegister ) {
+            if (registrationSettings == null || !registrationSettings.UsersCanRegister)
+            {
                 return HttpNotFound();
             }
 
@@ -125,7 +126,8 @@ namespace Orchard.Users.Controllers {
         public ActionResult Register(string userName, string email, string password, string confirmPassword) {
             // ensure users can register
             var registrationSettings = _orchardServices.WorkContext.CurrentSite.As<RegistrationSettingsPart>();
-            if ( !registrationSettings.UsersCanRegister ) {
+            if (registrationSettings == null || !registrationSettings.UsersCanRegister)
+            {
                 return HttpNotFound();
             }
 
@@ -169,7 +171,8 @@ namespace Orchard.Users.Controllers {
         public ActionResult RequestLostPassword() {
             // ensure users can request lost password
             var registrationSettings = _orchardServices.WorkContext.CurrentSite.As<RegistrationSettingsPart>();
-            if ( !registrationSettings.EnableLostPassword ) {
+            if (registrationSettings == null || !registrationSettings.EnableLostPassword)
+            {
                 return HttpNotFound();
             }
 
@@ -181,7 +184,8 @@ namespace Orchard.Users.Controllers {
         public ActionResult RequestLostPassword(string username) {
             // ensure users can request lost password
             var registrationSettings = _orchardServices.WorkContext.CurrentSite.As<RegistrationSettingsPart>();
-            if ( !registrationSettings.EnableLostPassword ) {
+            if (registrationSettings == null || !registrationSettings.EnableLostPassword)
+            {
                 return HttpNotFound();
             }
 

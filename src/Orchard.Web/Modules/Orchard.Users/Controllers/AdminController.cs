@@ -49,6 +49,14 @@ namespace Orchard.Users.Controllers {
         public IOrchardServices Services { get; set; }
         public Localizer T { get; set; }
 
+        private bool MembershipInitialized
+        {
+            get
+            {
+                return Services.ContentManager.Query("User").Count() > 0;
+            }
+        }
+
         public ActionResult Index(UserIndexOptions options, PagerParameters pagerParameters) {
             if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to list users")))
                 return new HttpUnauthorizedResult();
@@ -151,7 +159,7 @@ namespace Orchard.Users.Controllers {
         }
 
         public ActionResult Create() {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
+            if (MembershipInitialized && !Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
                 return new HttpUnauthorizedResult();
 
             var user = Services.ContentManager.New<IUser>("User");
@@ -166,7 +174,7 @@ namespace Orchard.Users.Controllers {
 
         [HttpPost, ActionName("Create")]
         public ActionResult CreatePOST(UserCreateViewModel createModel) {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
+            if (MembershipInitialized && !Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
                 return new HttpUnauthorizedResult();
 
             if (!string.IsNullOrEmpty(createModel.UserName)) {
