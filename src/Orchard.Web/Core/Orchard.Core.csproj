@@ -224,10 +224,10 @@
     <Compile Include="Settings\ViewModels\SiteCulturesViewModel.cs" />
     <Compile Include="Settings\Metadata\ContentDefinitionManager.cs" />
     <Compile Include="Settings\Metadata\Records\ContentFieldRecord.cs" />
-    <Compile Include="Settings\Metadata\Records\ContentPartDefinitionRecord.cs" />
-    <Compile Include="Settings\Metadata\Records\ContentPartFieldDefinitionRecord.cs" />
-    <Compile Include="Settings\Metadata\Records\ContentTypeDefinitionRecord.cs" />
-    <Compile Include="Settings\Metadata\Records\ContentTypePartDefinitionRecord.cs" />
+    <Compile Include="Settings\Metadata\Records\ContentPartRecord.cs" />
+    <Compile Include="Settings\Metadata\Records\ContentPartFieldRecord.cs" />
+    <Compile Include="Settings\Metadata\Records\ContentTypeRecord.cs" />
+    <Compile Include="Settings\Metadata\Records\ContentTypePartRecord.cs" />
     <Compile Include="Settings\Models\SiteSettingsPartRecord.cs" />
     <Compile Include="Settings\State\Records\ShellFeatureStateRecord.cs" />
     <Compile Include="Settings\State\Records\ShellStateRecord.cs" />

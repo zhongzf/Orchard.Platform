@@ -11,7 +11,7 @@ namespace Orchard.Core.Settings {
                     .Column<string>("Name")
                 );
 
-            SchemaBuilder.CreateTable("ContentPartDefinitionRecord", 
+            SchemaBuilder.CreateTable("ContentPartRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Name")
@@ -19,16 +19,16 @@ namespace Orchard.Core.Settings {
                     .Column<string>("Settings", column => column.Unlimited())
                 );
 
-            SchemaBuilder.CreateTable("ContentPartFieldDefinitionRecord", 
+            SchemaBuilder.CreateTable("ContentPartFieldRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Name")
                     .Column<string>("Settings", column => column.Unlimited())
                     .Column<int>("ContentFieldRecord_id")
-                    .Column<int>("ContentPartDefinitionRecord_Id")
+                    .Column<int>("ContentPartRecord_Id")
                 );
 
-            SchemaBuilder.CreateTable("ContentTypeDefinitionRecord", 
+            SchemaBuilder.CreateTable("ContentTypeRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Name")
@@ -37,12 +37,12 @@ namespace Orchard.Core.Settings {
                     .Column<string>("Settings", column => column.Unlimited())
                 );
 
-            SchemaBuilder.CreateTable("ContentTypePartDefinitionRecord", 
+            SchemaBuilder.CreateTable("ContentTypePartRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Settings", column => column.Unlimited())
-                    .Column<int>("ContentPartDefinitionRecord_id")
-                    .Column<int>("ContentTypeDefinitionRecord_Id")
+                    .Column<int>("ContentPartRecord_id")
+                    .Column<int>("ContentTypeRecord_Id")
                 );
 
             SchemaBuilder.CreateTable("ShellDescriptorRecord", 

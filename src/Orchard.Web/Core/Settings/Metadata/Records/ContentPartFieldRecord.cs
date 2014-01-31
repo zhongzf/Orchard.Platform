@@ -1,7 +1,7 @@
 ﻿using Orchard.Data.Conventions;
 
 namespace Orchard.Core.Settings.Metadata.Records {
-    public class ContentPartFieldDefinitionRecord {
+    public class ContentPartFieldRecord {
         public virtual int Id { get; set; }
         public virtual ContentFieldRecord ContentFieldRecord { get; set; }
         public virtual string Name { get; set; }
