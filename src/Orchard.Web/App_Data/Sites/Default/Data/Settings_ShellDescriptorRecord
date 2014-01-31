@@ -5,10 +5,12 @@
 		Features:
 			[
 				{Name: "Orchard.Framework"},
+				{Name: "Common"},
 				{Name: "Contents"},
 				{Name: "Navigation"},
 				{Name: "Settings"},
 				{Name: "Shapes"},
+				{Name: "Title"},
 				{Name: "Orchard.Themes"},
 				{Name: "Orchard.Modules"},
 				{Name: "Orchard.jQuery"},
