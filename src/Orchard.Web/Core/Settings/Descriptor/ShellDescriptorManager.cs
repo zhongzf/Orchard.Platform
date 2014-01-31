@@ -17,15 +17,19 @@ namespace Orchard.Core.Settings.Descriptor {
             Features = new[] 
                 {
                     new ShellFeature {Name = "Orchard.Framework"},
+                    new ShellFeature {Name = "Common"},
+                    new ShellFeature {Name = "Contents"},
                     new ShellFeature {Name = "Navigation"},
                     new ShellFeature {Name = "Settings"},
                     new ShellFeature {Name = "Shapes"},
+                    new ShellFeature {Name = "Title"},
                     new ShellFeature {Name = "Orchard.Themes"},
                     new ShellFeature {Name = "Orchard.Modules"},
                     new ShellFeature {Name = "Orchard.jQuery"},
                     new ShellFeature {Name = "TheThemeMachine"},
-                    new ShellFeature {Name = "Orchard.Security"},
-                    new ShellFeature {Name = "Orchard.Home"},
+                    new ShellFeature {Name = "Orchard.Users"},
+                    new ShellFeature {Name = "Orchard.Roles"},
+                    new ShellFeature {Name = "Orchard.Home"}
                 },
             Parameters = Enumerable.Empty<ShellParameter>(),
         };
@@ -78,7 +82,7 @@ namespace Orchard.Core.Settings.Descriptor {
 
         public void UpdateShellDescriptor(int priorSerialNumber, IEnumerable<ShellFeature> enabledFeatures, IEnumerable<ShellParameter> parameters) {
             ShellDescriptorRecord shellDescriptorRecord = GetDescriptorRecord();
-            var serialNumber = shellDescriptorRecord == null ? 0 : shellDescriptorRecord.SerialNumber;
+            var serialNumber = shellDescriptorRecord == null ? 1 : shellDescriptorRecord.SerialNumber;
             if (priorSerialNumber != serialNumber)
                 throw new InvalidOperationException(T("Invalid serial number for shell descriptor").ToString());
 

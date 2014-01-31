@@ -9,4 +9,10 @@ Features:
     Contents
         Name: Contents
         Description: Default custom content type definition, creation and management.
-        Category: Core
+        Category: Content
+        Dependencies: Common
+    Contents.ControlWrapper:
+        Name: Content Control Wrapper
+        Description: Add an Edit button on the front-end for authenticated users
+        Category: Content
+        Dependencies: Contents

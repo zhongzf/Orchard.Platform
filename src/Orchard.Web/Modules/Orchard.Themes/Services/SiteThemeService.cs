@@ -40,39 +40,57 @@ namespace Orchard.Themes.Services {
             return string.IsNullOrEmpty(currentThemeName) ? null : _extensionManager.GetExtension(GetCurrentThemeName());
         }
 
-        public void SetSiteTheme(string themeName) {
+        public void SetSiteTheme(string themeName)
+        {
             var site = _orchardServices.WorkContext.CurrentSite;
-            var themeSiteSettingsPartRecord = _themeSiteSettingsPartRecordRepository.Get(_orchardServices.WorkContext.CurrentSite.Id);
-            if (themeSiteSettingsPartRecord != null)
+            var themeSiteSettingsPart = site.As<ThemeSiteSettingsPart>();
+            if (themeSiteSettingsPart != null)
             {
-                themeSiteSettingsPartRecord.CurrentThemeName = themeName;
-                _themeSiteSettingsPartRecordRepository.Update(themeSiteSettingsPartRecord);
+                themeSiteSettingsPart.CurrentThemeName = themeName;
             }
             else
             {
-                themeSiteSettingsPartRecord = new ThemeSiteSettingsPartRecord
+                var themeSiteSettingsPartRecord = _themeSiteSettingsPartRecordRepository.Get(_orchardServices.WorkContext.CurrentSite.Id);
+                if (themeSiteSettingsPartRecord != null)
                 {
-                    Id = _orchardServices.WorkContext.CurrentSite.Id,
-                    CurrentThemeName = themeName
-                };
-                _themeSiteSettingsPartRecordRepository.Create(themeSiteSettingsPartRecord);
+                    themeSiteSettingsPartRecord.CurrentThemeName = themeName;
+                    _themeSiteSettingsPartRecordRepository.Update(themeSiteSettingsPartRecord);
+                }
+                else
+                {
+                    themeSiteSettingsPartRecord = new ThemeSiteSettingsPartRecord
+                    {
+                        Id = _orchardServices.WorkContext.CurrentSite.Id,
+                        CurrentThemeName = themeName
+                    };
+                    _themeSiteSettingsPartRecordRepository.Create(themeSiteSettingsPartRecord);
+                }
             }
 
             _signals.Trigger(CurrentThemeSignal);
         }
 
-        public string GetCurrentThemeName() {
-            return _cacheManager.Get("CurrentThemeName", ctx => {
+        public string GetCurrentThemeName()
+        {
+            return _cacheManager.Get("CurrentThemeName", ctx =>
+            {
                 ctx.Monitor(_signals.When(CurrentThemeSignal));
-
-                var themeSiteSettingsPartRecord = _themeSiteSettingsPartRecordRepository.Get(_orchardServices.WorkContext.CurrentSite.Id);
-                if (themeSiteSettingsPartRecord != null)
+                var themeSiteSettingsPart = _orchardServices.WorkContext.CurrentSite.As<ThemeSiteSettingsPart>();
+                if (themeSiteSettingsPart != null)
                 {
-                    return themeSiteSettingsPartRecord.CurrentThemeName;
+                    return themeSiteSettingsPart.CurrentThemeName;
                 }
                 else
                 {
-                    return "TheThemeMachine";
+                    var themeSiteSettingsPartRecord = _themeSiteSettingsPartRecordRepository.Get(_orchardServices.WorkContext.CurrentSite.Id);
+                    if (themeSiteSettingsPartRecord != null)
+                    {
+                        return themeSiteSettingsPartRecord.CurrentThemeName;
+                    }
+                    else
+                    {
+                        return "TheThemeMachine";
+                    }
                 }
             });
         }

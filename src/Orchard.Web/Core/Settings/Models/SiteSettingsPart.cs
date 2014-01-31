@@ -25,7 +25,8 @@ namespace Orchard.Core.Settings.Models {
                     {
                         Id = record.Id
                     }
-                }
+                },
+                ContentType = "Site"
             };
         }
 

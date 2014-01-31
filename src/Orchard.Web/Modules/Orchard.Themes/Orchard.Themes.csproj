@@ -20,11 +20,6 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,15 +50,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Commands\ThemeCommands.cs" />
+    <Compile Include="Events\IExtensionDisplayEventHandler.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\ThemeEntry.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Handlers\ThemeSiteSettingsPartHandler.cs" />
     <Compile Include="Models\ThemeSiteSettingsPart.cs" />
     <Compile Include="Models\ThemeSiteSettingsPartRecord.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Preview\IPreviewTheme.cs" />
+    <Compile Include="Preview\PreviewTheme.cs" />
+    <Compile Include="Preview\PreviewThemeFilter.cs" />
+    <Compile Include="Preview\PreviewThemeSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IThemeService.cs" />
     <Compile Include="Services\SafeModeThemeSelector.cs" />
     <Compile Include="Services\SiteThemeSelector.cs" />
     <Compile Include="Services\SiteThemeService.cs" />
     <Compile Include="Services\ThemeService.cs" />
+    <Compile Include="ViewModels\ThemesIndexViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\orchard.ico" />
+    <Content Include="Styles\images\menu.themes.png" />
+    <Content Include="Styles\images\new.gif" />
+    <Content Include="Styles\images\update.gif" />
+    <Content Include="Styles\menu.themes-admin.css" />
+    <Content Include="Styles\orchard-themes-admin.css" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\ThemePreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module.txt" />
@@ -75,7 +93,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ThemeEntry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ThemeEntry.Current.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

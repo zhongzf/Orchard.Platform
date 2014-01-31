@@ -9,10 +9,5 @@ Features:
     Orchard.Roles:
 		Name: Roles
         Description: Standard user roles.
-		Category: Core
+		Category: Security
 		Dependencies: Orchard.Users
-	Orchard.Roles.Workflows:
-		Name: Roles Workflows Activities
-        Description: Provides an anti-spam filter based on Akismet.
-		Category: Workflows
-		Dependencies: Orchard.Workflows
