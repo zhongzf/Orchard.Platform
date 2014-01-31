@@ -66,7 +66,6 @@ namespace Orchard.Themes.Services {
                     _themeSiteSettingsPartRecordRepository.Create(themeSiteSettingsPartRecord);
                 }
             }
-
             _signals.Trigger(CurrentThemeSignal);
         }
 
