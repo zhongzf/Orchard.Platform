@@ -42,37 +42,49 @@ namespace Orchard.Data
         }
 
         private bool loaded = false;
+        private void EnsureLoadData()
+        {
+            if (!this.loaded)
+            {
+                lock (this)
+                {
+                    if (!this.loaded)
+                    {
+                        if (File.Exists(fileName))
+                        {
+                            string json = File.ReadAllText(fileName);
+                            var list = JsonConvert.DeserializeObject<List<T>>(json);
+                            data = new ConcurrentDictionary<int, T>();
+                            foreach (var value in list)
+                            {
+                                data.TryAdd(GetId(value), value);
+                            }
+                        }
+                        else
+                        {
+                            data = new ConcurrentDictionary<int, T>();
+                        }
+                        this.loaded = true;
+                    }
+                }
+            }
+        }
+
         private ConcurrentDictionary<int, T> data;
+        private ConcurrentDictionary<int, T> Data
+        {
+            get
+            {
+                EnsureLoadData();
+                return data;
+            }
+        }
 
         public virtual IQueryable<T> Table
         {
             get
-            {
-                if (!this.loaded)
-                {
-                    lock (this)
-                    {
-                        if (!this.loaded)
-                        {
-                            if (File.Exists(fileName))
-                            {
-                                string json = File.ReadAllText(fileName);
-                                var list = JsonConvert.DeserializeObject<List<T>>(json);
-                                data = new ConcurrentDictionary<int, T>();
-                                foreach (var value in list)
-                                {
-                                    data.TryAdd(GetId(value), value);
-                                }
-                            }
-                            else
-                            {
-                                data = new ConcurrentDictionary<int, T>();
-                            }
-                            this.loaded = true;
-                        }
-                    }
-                }
-                return data.Values.AsQueryable();
+            {                
+                return Data.Values.AsQueryable();
             }
         }
 
@@ -91,9 +103,9 @@ namespace Orchard.Data
 
         public virtual int GetUniqueId()
         {
-            if (data.Keys.Count > 0)
+            if (Data.Keys.Count > 0)
             {
-                return data.Keys.Max() + 1;
+                return Data.Keys.Max() + 1;
             }
             else
             {
@@ -105,7 +117,7 @@ namespace Orchard.Data
         {
             Logger.Debug("Create {0}", entity);
             int id = GetUniqueId();
-            data.TryAdd(id, SetId(entity, id));
+            Data.TryAdd(id, SetId(entity, id));
             try
             {
                 Flush();
@@ -119,7 +131,7 @@ namespace Orchard.Data
         public virtual void Update(T entity)
         {
             Logger.Debug("Update {0}", entity);
-            if (!data.Values.Contains(entity))
+            if (!Data.Values.Contains(entity))
             {
                 Copy(entity, Get(GetId(entity)));
             }
@@ -137,7 +149,7 @@ namespace Orchard.Data
         {
             Logger.Debug("Delete {0}", entity);
             T t;
-            data.TryRemove(GetId(entity), out t);
+            Data.TryRemove(GetId(entity), out t);
             try
             {
                 Flush();
@@ -152,7 +164,7 @@ namespace Orchard.Data
         {
             lock (this)
             {
-                string json = JsonConvert.SerializeObject(data.Values);
+                string json = JsonConvert.SerializeObject(Data.Values);
                 File.WriteAllText(fileName, json);
             }
         }

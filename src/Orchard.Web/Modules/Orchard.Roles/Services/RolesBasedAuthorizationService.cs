@@ -8,9 +8,11 @@ using Orchard.ContentManagement;
 using Orchard.Roles.Models;
 using Orchard.Security;
 using Orchard.Security.Permissions;
+using Orchard.Environment.Extensions;
 
 namespace Orchard.Roles.Services {
     [UsedImplicitly]
+    [OrchardSuppressDependency("Orchard.Security.AuthorizationService")]
     public class RolesBasedAuthorizationService : IAuthorizationService {
         private readonly IRoleService _roleService;
         private readonly IWorkContextAccessor _workContextAccessor;

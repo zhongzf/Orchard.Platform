@@ -17,19 +17,8 @@ namespace Orchard.Core.Settings.Descriptor {
             Features = new[] 
                 {
                     new ShellFeature {Name = "Orchard.Framework"},
-                    new ShellFeature {Name = "Common"},
-                    new ShellFeature {Name = "Contents"},
-                    new ShellFeature {Name = "Navigation"},
                     new ShellFeature {Name = "Settings"},
-                    new ShellFeature {Name = "Shapes"},
-                    new ShellFeature {Name = "Title"},
-                    new ShellFeature {Name = "Orchard.Themes"},
-                    new ShellFeature {Name = "Orchard.Modules"},
-                    new ShellFeature {Name = "Orchard.jQuery"},
-                    new ShellFeature {Name = "TheThemeMachine"},
-                    new ShellFeature {Name = "Orchard.Users"},
-                    new ShellFeature {Name = "Orchard.Roles"},
-                    new ShellFeature {Name = "Orchard.Home"}
+                    new ShellFeature {Name = "Shapes"}
                 },
             Parameters = Enumerable.Empty<ShellParameter>(),
         };

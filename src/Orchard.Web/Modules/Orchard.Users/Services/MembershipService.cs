@@ -13,10 +13,13 @@ using Orchard.Users.Models;
 using Orchard.Messaging.Services;
 using System.Collections.Generic;
 using Orchard.Services;
+using Orchard.Environment.Extensions;
 
 namespace Orchard.Users.Services {
     [UsedImplicitly]
-    public class MembershipService : IMembershipService {
+    [OrchardSuppressDependency("Orchard.Security.MembershipService")]
+    public class MembershipService : IMembershipService
+    {
         private readonly IOrchardServices _orchardServices;
         private readonly IMessageManager _messageManager;
         private readonly IEnumerable<IUserEventHandler> _userEventHandlers;

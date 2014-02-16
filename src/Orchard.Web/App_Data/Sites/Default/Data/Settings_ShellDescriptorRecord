@@ -5,19 +5,7 @@
 		Features:
 			[
 				{Name: "Orchard.Framework"},
-				{Name: "Common"},
-				{Name: "Contents"},
-				{Name: "Navigation"},
-				{Name: "Settings"},
-				{Name: "Shapes"},
-				{Name: "Title"},
-				{Name: "Orchard.Themes"},
-				{Name: "Orchard.Modules"},
-				{Name: "Orchard.jQuery"},
-				{Name: "TheThemeMachine"},
-				{Name: "Orchard.Users"},
-				{Name: "Orchard.Roles"},
-				{Name: "Orchard.Home"}
+				{Name: "Settings"}
 			]
 	}
 ]

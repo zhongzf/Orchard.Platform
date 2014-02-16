@@ -291,6 +291,7 @@
     <Compile Include="Recipes\Models\RecipeContext.cs" />
     <Compile Include="Recipes\Models\RecipeJournal.cs" />
     <Compile Include="Recipes\Models\RecipeStep.cs" />
+    <Compile Include="Recipes\Services\DefaultRecipeManager.cs" />
     <Compile Include="Recipes\Services\IRecipeHandler.cs" />
     <Compile Include="Recipes\Services\IRecipeHarvester.cs" />
     <Compile Include="Recipes\Services\IRecipeJournal.cs" />
@@ -299,9 +300,12 @@
     <Compile Include="Recipes\Services\IRecipeScheduler.cs" />
     <Compile Include="Recipes\Services\IRecipeStepExecutor.cs" />
     <Compile Include="Recipes\Services\IRecipeStepQueue.cs" />
+    <Compile Include="Recipes\Services\DefaultRecipeHarvester.cs" />
     <Compile Include="Security\AlwaysAccessibleAttribute.cs" />
+    <Compile Include="Security\AuthorizationService.cs" />
     <Compile Include="Security\IEncryptionService.cs" />
     <Compile Include="Security\CurrentUserWorkContext.cs" />
+    <Compile Include="Security\MembershipService.cs" />
     <Compile Include="Security\Providers\DefaultEncryptionService.cs" />
     <Compile Include="Services\Clock.cs" />
     <Compile Include="Services\DefaultJsonConverter.cs" />
@@ -309,6 +313,7 @@
     <Compile Include="Settings\CurrentSiteWorkContext.cs" />
     <Compile Include="Settings\ResourceDebugMode.cs" />
     <Compile Include="Themes\CurrentThemeWorkContext.cs" />
+    <Compile Include="Themes\DefaultThemeSelector.cs" />
     <Compile Include="Themes\ThemeManager.cs" />
     <Compile Include="Time\CurrentTimeZoneWorkContext.cs" />
     <Compile Include="Time\FallbackTimeZoneSelector.cs" />
@@ -319,6 +324,7 @@
     <Compile Include="UI\Navigation\IMenuProvider.cs" />
     <Compile Include="UI\Navigation\INavigationFilter.cs" />
     <Compile Include="UI\Navigation\NavigationHelper.cs" />
+    <Compile Include="UI\Navigation\NavigationManager.cs" />
     <Compile Include="UI\Navigation\Pager.cs" />
     <Compile Include="UI\Navigation\PagerParameters.cs" />
     <Compile Include="UI\Resources\IResourceManifestProvider.cs" />

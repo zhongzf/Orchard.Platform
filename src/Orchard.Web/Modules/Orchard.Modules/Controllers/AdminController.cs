@@ -31,10 +31,8 @@ namespace Orchard.Modules.Controllers {
         private readonly IReportsCoordinator _reportsCoordinator;
         private readonly IExtensionManager _extensionManager;
         private readonly IFeatureManager _featureManager;
-#if USE_Recipe
         private readonly IRecipeHarvester _recipeHarvester;
         private readonly IRecipeManager _recipeManager;
-#endif
         private readonly ShellDescriptor _shellDescriptor;
 
         public AdminController(
@@ -45,10 +43,8 @@ namespace Orchard.Modules.Controllers {
             IReportsCoordinator reportsCoordinator,
             IExtensionManager extensionManager,
             IFeatureManager featureManager,
-#if USE_Recipe
             IRecipeHarvester recipeHarvester,
             IRecipeManager recipeManager,
-#endif
             ShellDescriptor shellDescriptor,
             IShapeFactory shapeFactory)
         {
@@ -59,10 +55,8 @@ namespace Orchard.Modules.Controllers {
             _reportsCoordinator = reportsCoordinator;
             _extensionManager = extensionManager;
             _featureManager = featureManager;
-#if USE_Recipe
             _recipeHarvester = recipeHarvester;
             _recipeManager = recipeManager;
-#endif
             _shellDescriptor = shellDescriptor;
             Shape = shapeFactory;
 
@@ -112,7 +106,6 @@ namespace Orchard.Modules.Controllers {
             });
         }
 
-#if USE_Recipe
         public ActionResult Recipes() {
             if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not allowed to manage modules")))
                 return new HttpUnauthorizedResult();
@@ -169,8 +162,6 @@ namespace Orchard.Modules.Controllers {
             return RedirectToAction("Recipes");
 
         }
-#endif
-
         public ActionResult Features() {
             if (!Services.Authorizer.Authorize(Permissions.ManageFeatures, T("Not allowed to manage features")))
                 return new HttpUnauthorizedResult();
