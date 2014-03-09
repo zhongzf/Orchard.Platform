@@ -6,4 +6,4 @@ Version: 1.7.2
 OrchardVersion: 1.7.2
 Description: The dashboard module is providing the reports screen of the application.
 FeatureDescription: Reports management.
-Category: Admin
+Category: Core

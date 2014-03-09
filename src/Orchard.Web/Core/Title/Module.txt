@@ -6,4 +6,4 @@ Version: 1.7.2
 OrchardVersion: 1.7.2
 Description: The title module enables content items to have titles.
 FeatureDescription: Title content part.
-Category: Content
+Category: Core
